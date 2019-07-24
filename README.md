@@ -360,10 +360,10 @@ nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.f
 
 
 ## 四、参考资料：
-•	[Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)
-•	[parallelcluster文档.](https://aws-parallelcluster.readthedocs.io/en/latest/)
-•	[aws-parallelcluster GitHub 存储库.](https://github.com/aws/aws-parallelcluster)
-•   镜像版本迭代:
++ [Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)
++ [parallelcluster文档.](https://aws-parallelcluster.readthedocs.io/en/latest/)
++ [aws-parallelcluster GitHub 存储库.](https://github.com/aws/aws-parallelcluster)
++ 镜像版本迭代:
 |系统	|版本号	|AMI ID	|更新描述	|地域	|是否公开	|可用性	|备注	|
 |---	|---	|---	|---	|---	|---	|---	|---	|
 |alinux-base	|	|ami-0da67c26ce2e8d111	|基础镜像	|BJS	|是	|是	|	|
