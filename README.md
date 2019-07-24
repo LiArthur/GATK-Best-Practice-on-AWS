@@ -65,26 +65,37 @@
 ** 请登录console，并点击 *我的安全凭证* **
 ** 创建访问密钥并记录aws_access_key_id及aws_secret_access_key **
 <br>
+
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/6.png)
+
 <br>
+
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/7.png)
+
 <br>
 <br>
 + VPC及子网
 **请搜索VPC服务，并选择你要启动集群的VPC**
 **记录vpc_id，master_subnet_id**
 <br>
+
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/8.png)
+
 <br>
+
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/9.png)
+
 <br>
+
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/10.png)
+
 <br>
 <br>
 + EC2访问密钥
 ** 搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件 **
 ** 记录key_name为创建密钥对输入的名字 **
 <br>
+
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/11.png)
 
 ##### ②、配置pcluster config(可参考官方博客)
