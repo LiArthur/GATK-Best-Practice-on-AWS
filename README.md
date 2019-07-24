@@ -1,7 +1,7 @@
 
 ## 一、方案简介
 
-*** 相关基本介绍请参考[Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/) ***
+** 相关基本介绍请参考[Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/) **
 
 ### 1、现状及方案概述
 当前基因行业的分析平台大致分为三类，分别是单机、HPC集群、K8S集群，占比最的的仍然是HPC集群这种形式，对于大部分公司来说，本地HPC的搭建、运维成本仍然很昂贵，并且存在着诸多问题：
@@ -364,6 +364,7 @@ nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.f
 + [parallelcluster文档.](https://aws-parallelcluster.readthedocs.io/en/latest/)
 + [aws-parallelcluster GitHub 存储库.](https://github.com/aws/aws-parallelcluster)
 + 镜像版本迭代:
+
 |系统	|版本号	|AMI ID	|更新描述	|地域	|是否公开	|可用性	|备注	|
 |---	|---	|---	|---	|---	|---	|---	|---	|
 |alinux-base	|	|ami-0da67c26ce2e8d111	|基础镜像	|BJS	|是	|是	|	|
