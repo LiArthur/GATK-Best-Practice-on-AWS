@@ -62,8 +62,10 @@
 #### 3)、pcluster安装及配置
 ##### ①、相关准备
 + aws_access_key_id及aws_secret_access_key
+
 ** 请登录console，并点击 *我的安全凭证* **
 ** 创建访问密钥并记录aws_access_key_id及aws_secret_access_key **
+
 <br>
 
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/6.png)
@@ -75,8 +77,10 @@
 <br>
 <br>
 + VPC及子网
+
 **请搜索VPC服务，并选择你要启动集群的VPC**
 **记录vpc_id，master_subnet_id**
+
 <br>
 
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/8.png)
@@ -91,9 +95,13 @@
 
 <br>
 <br>
+
 + EC2访问密钥
+
 ** 搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件 **
+
 ** 记录key_name为创建密钥对输入的名字 **
+
 <br>
 
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/11.png)
@@ -110,8 +118,8 @@
     #复制下述配置信息，粘贴到配置文档~/.parallelcluster/config
     [aws]
     aws_region_name = cn-northwest-1
-    aws_access_key_id = AKIATIM7AOQ7IHJCM3 //需要修改
-    aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCJAKA  //需要修改
+    aws_access_key_id = AKIATIM7AOQ7IHJCM //需要修改
+    aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCKA  //需要修改
     
     [vpc public]
     vpc_id = vpc-a817aac5  //需要修改
