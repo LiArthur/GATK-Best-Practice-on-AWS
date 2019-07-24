@@ -1,9 +1,9 @@
-[TOC]
 
-##一、方案简介
+## 一、方案简介
 
-***相关基本介绍请参考[Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)***
-###1、现状及方案概述
+*** 相关基本介绍请参考[Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/) ***
+
+### 1、现状及方案概述
 当前基因行业的分析平台大致分为三类，分别是单机、HPC集群、K8S集群，占比最的的仍然是HPC集群这种形式，对于大部分公司来说，本地HPC的搭建、运维成本仍然很昂贵，并且存在着诸多问题：
 
 + 计算存储的扩容、缩容周期长，难以跟上业务发展的速度
@@ -17,34 +17,34 @@
 
 ***
 
-###2、解决的需求和问题
-####1)、生产与测试系统未隔离，各产品线共用一套集群
-####2)、本地集群无容灾，一旦受损（宕机、环境变动）、停止（如物业计划维护、断网断电等）将影响所有产品业务
+### 2、解决的需求和问题
+#### 1)、生产与测试系统未隔离，各产品线共用一套集群
+#### 2)、本地集群无容灾，一旦受损（宕机、环境变动）、停止（如物业计划维护、断网断电等）将影响所有产品业务
 ![](leanote://file/getImage?fileId=5d1c25d53d38911aae000006)
 
-####3)、计算存储资源量估算困难，部署周期长，业务线变动较大
+#### 3)、计算存储资源量估算困难，部署周期长，业务线变动较大
 ![](leanote://file/getImage?fileId=5d1c25f13d38911aae000008)
 
-####4)、开发迭代混乱，集群环境大家共同维护，难以做到版本控制和环境复现!
+#### 4)、开发迭代混乱，集群环境大家共同维护，难以做到版本控制和环境复现!
 ![](leanote://file/getImage?fileId=5d1c26103d38911aae00000a)
 
-####5)、行业其他问题：
-#####①、项目管理靠人工跟踪，无信息化系统或信息化程度低
-#####②、信息环节无法做到成本核算
-#####③、数据量大且数据复杂，难以做到生命周期管理
+#### 5)、行业其他问题：
+##### ①、项目管理靠人工跟踪，无信息化系统或信息化程度低
+##### ②、信息环节无法做到成本核算
+##### ③、数据量大且数据复杂，难以做到生命周期管理
 
 ***
 
-##二、详细方案说明
-###1、集群解决方案
+## 二、详细方案说明
+### 1、集群解决方案
 ![集群解决方案](leanote://file/getImage?fileId=5d1c1f7c3d38911aae000002)
-###2、端到端的基因大数据分析、归档、交付方案
+### 2、端到端的基因大数据分析、归档、交付方案
 ![端到端的基因大数据分析、归档、交付方案](leanote://file/getImage?fileId=5d1c24223d38911aae000003)
-##三、方案部署及测试文档
-###1、10分钟集群部署
+## 三、方案部署及测试文档
+### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
-***注：测试以北京区为例***
-####1)、 安装pip及awscli并配置必要信息
+*** 注：测试以北京区为例 ***
+#### 1)、 安装pip及awscli并配置必要信息
     #pip安装
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python get-pip.py
@@ -56,14 +56,14 @@
     #根据具体情况设置AK,SK，所在区域及输出格式
     aws configure 
     
-####2)、安装pcluster
+#### 2)、安装pcluster
     sudo pip install aws-parallelcluster
 
-####3)、pcluster安装及配置
-#####①、相关准备
+#### 3)、pcluster安装及配置
+##### ①、相关准备
 + aws_access_key_id及aws_secret_access_key
-**请登录console，并点击 *我的安全凭证* **
-**创建访问密钥并记录aws_access_key_id及aws_secret_access_key**
+** 请登录console，并点击 *我的安全凭证* **
+** 创建访问密钥并记录aws_access_key_id及aws_secret_access_key **
 <br>
 ![](leanote://file/getImage?fileId=5d2034b63d38911aae00000c)
 <br>
@@ -82,12 +82,12 @@
 <br>
 <br>
 + EC2访问密钥
-**搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件**
-**记录key_name为创建密钥对输入的名字**
+** 搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件 **
+** 记录key_name为创建密钥对输入的名字 **
 <br>
 ![](leanote://file/getImage?fileId=5d2037a43d38911aae000013)
 
-#####②、配置pcluster config(可参考官方博客)
+##### ②、配置pcluster config(可参考官方博客)
 ***注：标注为 XXXXXXXXXX 的请修改为上面获取到的值***
 
     #创建配置模版,会提示无配置，请忽略错误信息
@@ -142,14 +142,14 @@
     [aliases]
     ssh = ssh {CFN_USER}@{MASTER_IP} {ARGS}
     
-####4)、启动集群
+#### 4)、启动集群
     pcluster create GATK-pipeline
     
-####5)、登陆集群master节点
+#### 5)、登陆集群master节点
     #根据集群启动后的反馈信息输入
     ssh -i <private key_name> ec2-user@master-public-ip
     
-####6)、投递任务
+#### 6)、投递任务
 默认预装SGE作业调度系统，所以可直接qsub投递计算任务，举例如下：
     
     echo "sleep 180" | qsub
@@ -164,13 +164,13 @@
     scancel jobid //取消任务
     
 
-###2、基于workflow工具调度的WES分析
+### 2、基于workflow工具调度的WES分析
 补充材料，可自行测试
-####1)、准备条件
-#####①、HPC集群
-#####②、nextflow调度软件
-#####③、脚本及配置文件
-####2)、脚本文件
+#### 1)、准备条件
+##### ①、HPC集群
+##### ②、nextflow调度软件
+##### ③、脚本及配置文件
+#### 2)、脚本文件
 保存以下代码为指定文件名，需要与后续运行命令相匹配。
 FileName：***custom.conf***
 ```
@@ -351,7 +351,7 @@ process finish {
 
 }
 ```
-####3)、运行方法
+#### 3)、运行方法
 ```
 #nextflow run -c ***[custom.conf]*** ***[nextflow script]*** --fastq1 ***[fastq1]*** --fastq2 ***[fastq2] -with-report xxx -with-timeline xxx -with-dag xxx ***-resume******
 nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.fastq.gz --fastq2 /genomes/project/nf/SRR622461_1.fastq.gz ***-with-report xxx -with-timeline xxx -with-dag xxx ***-resume******
@@ -359,7 +359,7 @@ nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.f
 
 
 
-##四、参考资料：
+## 四、参考资料：
 •	[Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)
 •	[parallelcluster文档.](https://aws-parallelcluster.readthedocs.io/en/latest/)
 •	[aws-parallelcluster GitHub 存储库.](https://github.com/aws/aws-parallelcluster)
@@ -390,5 +390,5 @@ nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.f
 |	|	|	|	|	|	|
 
 
-##五、FAQ
+## 五、FAQ
 
