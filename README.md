@@ -44,7 +44,7 @@
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
 
-*** 注：测试以北京区为例 ***
+***注：测试以宁夏区为例***
 
 #### 1)、 安装pip及awscli并配置必要信息
     #pip安装
@@ -66,9 +66,9 @@
 
 + aws_access_key_id及aws_secret_access_key
 
-** 请登录console，并点击 *我的安全凭证* **
+**请登录console，并点击*我的安全凭证***
 
-** 创建访问密钥并记录aws_access_key_id及aws_secret_access_key **
+**创建访问密钥并记录aws_access_key_id及aws_secret_access_key**
 
 <br>
 
