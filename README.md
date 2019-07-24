@@ -20,13 +20,13 @@
 ### 2、解决的需求和问题
 #### 1)、生产与测试系统未隔离，各产品线共用一套集群
 #### 2)、本地集群无容灾，一旦受损（宕机、环境变动）、停止（如物业计划维护、断网断电等）将影响所有产品业务
-![image](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/1.png)
+![image](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/1.png)
 
 #### 3)、计算存储资源量估算困难，部署周期长，业务线变动较大
-![image](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/2.png)
+![image](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/2.png)
 
 #### 4)、开发迭代混乱，集群环境大家共同维护，难以做到版本控制和环境复现!
-![image](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/3.png)
+![image](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/3.png)
 
 #### 5)、行业其他问题：
 ##### ①、项目管理靠人工跟踪，无信息化系统或信息化程度低
@@ -37,9 +37,9 @@
 
 ## 二、详细方案说明
 ### 1、集群解决方案
-![集群解决方案](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/4.png)
+![集群解决方案](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/4.png)
 ### 2、端到端的基因大数据分析、归档、交付方案
-![端到端的基因大数据分析、归档、交付方案](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/5.png)
+![端到端的基因大数据分析、归档、交付方案](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/5.png)
 ## 三、方案部署及测试文档
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
@@ -65,27 +65,27 @@
 ** 请登录console，并点击 *我的安全凭证* **
 ** 创建访问密钥并记录aws_access_key_id及aws_secret_access_key **
 <br>
-![](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/6.png)
+![](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/6.png)
 <br>
-![](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/7.png)
+![](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/7.png)
 <br>
 <br>
 + VPC及子网
 **请搜索VPC服务，并选择你要启动集群的VPC**
 **记录vpc_id，master_subnet_id**
 <br>
-![](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/8.png)
+![](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/8.png)
 <br>
-![](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/9.png)
+![](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/9.png)
 <br>
-![](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/10.png)
+![](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/10.png)
 <br>
 <br>
 + EC2访问密钥
 ** 搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件 **
 ** 记录key_name为创建密钥对输入的名字 **
 <br>
-![](http://github.com/lab798/GATK-Best-Practice-on-AWSraw/master/images/11.png)
+![](http://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/11.png)
 
 ##### ②、配置pcluster config(可参考官方博客)
 ***注：标注为 XXXXXXXXXX 的请修改为上面获取到的值***
