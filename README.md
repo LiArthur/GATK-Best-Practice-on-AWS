@@ -43,7 +43,9 @@
 ## 三、方案部署及测试文档
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
+
 *** 注：测试以北京区为例 ***
+
 #### 1)、 安装pip及awscli并配置必要信息
     #pip安装
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -61,9 +63,11 @@
 
 #### 3)、pcluster安装及配置
 ##### ①、相关准备
+
 + aws_access_key_id及aws_secret_access_key
 
 ** 请登录console，并点击 *我的安全凭证* **
+
 ** 创建访问密钥并记录aws_access_key_id及aws_secret_access_key **
 
 <br>
@@ -79,6 +83,7 @@
 + VPC及子网
 
 **请搜索VPC服务，并选择你要启动集群的VPC**
+
 **记录vpc_id，master_subnet_id**
 
 <br>
@@ -107,6 +112,7 @@
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/11.png)
 
 ##### ②、配置pcluster config(可参考官方博客)
+
 ***注：标注为 XXXXXXXXXX 的请修改为上面获取到的值***
 
     #创建配置模版,会提示无配置，请忽略错误信息
