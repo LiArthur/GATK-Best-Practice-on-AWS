@@ -47,19 +47,22 @@
 ***注：测试以宁夏区为例***
 
 #### 1)、 安装pip及awscli并配置必要信息
-    #pip安装
-    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    python get-pip.py
-    
-    #awscli安装
-    sudo pip install awscli
-    
-    #aws配置
-    #根据具体情况设置AK,SK，所在区域及输出格式
-    aws configure 
-    
+```shell
+#pip安装
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+
+#awscli安装
+sudo pip install awscli
+
+#aws配置
+#根据具体情况设置AK,SK，所在区域及输出格式
+aws configure 
+```
 #### 2)、安装pcluster
-    sudo pip install aws-parallelcluster
+```shell
+sudo pip install aws-parallelcluster
+```
 
 #### 3)、pcluster安装及配置
 ##### ①、相关准备
@@ -80,6 +83,7 @@
 
 <br>
 <br>
+
 + VPC及子网
 
 **请搜索VPC服务，并选择你要启动集群的VPC**
@@ -103,9 +107,9 @@
 
 + EC2访问密钥
 
-** 搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件 **
+**搜索EC2服务，并进入EC2服务页面选择密钥对，创建新密钥并下载密钥文件**
 
-** 记录key_name为创建密钥对输入的名字 **
+**记录key_name为创建密钥对输入的名字**
 
 <br>
 
@@ -114,79 +118,86 @@
 ##### ②、配置pcluster config(可参考官方博客)
 
 ***注：标注为 XXXXXXXXXX 的请修改为上面获取到的值***
+```shell
+#创建配置模版,会提示无配置，请忽略错误信息
+pcluster create new
 
-    #创建配置模版,会提示无配置，请忽略错误信息
-    pcluster create new
-    
-    #编辑配置文档
-    vim ~/.parallelcluster/config
+#编辑配置文档
+vim ~/.parallelcluster/config
 
-    #复制下述配置信息，粘贴到配置文档~/.parallelcluster/config
-    [aws]
-    aws_region_name = cn-northwest-1
-    aws_access_key_id = AKIATIM7AOQ7IHJCM //需要修改
-    aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCKA  //需要修改
-    
-    [vpc public]
-    vpc_id = vpc-a817aac5  //需要修改
-    master_subnet_id = subnet-26fcc86cd  //需要修改
-    
-    [cluster GATK-pipeline]
-    base_os = alinux
-    custom_ami = ami-09fe399cffad04f67
-    vpc_settings = public
-    scheduler = slurm
-    key_name = NX_key  //需要修改
-    compute_instance_type = m4.xlarge
-    master_instance_type = m4.xlarge
-    compute_root_volume_size = 50
-    master_root_volume_size = 50
-    ebs_settings = genomes
-    s3_read_resource = arn:aws-cn:s3:::parallelcluster-gatk/*
-    scaling_settings = GATK-ASG
-    initial_queue_size = 1
-    pre_install = s3://parallelcluster-gatk/00.ParallelCluster/preinstall.sh 
-    max_queue_size = 4
-    maintain_initial_size = false
-    extra_json = { "cluster" : { "ganglia_enabled" : "yes" ,"cfn_scheduler_slots" : "cores" } }
-    
-    [scaling GATK-ASG]
-    scaledown_idletime = 5
-    
-    [ebs genomes]
-    shared_dir = genomes
-    ebs_snapshot_id = snap-040c71fd2bb5d4236
-    volume_type = gp2
-    volume_size =  1024
-    
-    [global]
-    update_check = true
-    sanity_check = true
-    cluster_template = GATK-pipeline
-    
-    [aliases]
-    ssh = ssh {CFN_USER}@{MASTER_IP} {ARGS}
+#复制下述配置信息，粘贴到配置文档~/.parallelcluster/config
+[aws]
+aws_region_name = cn-northwest-1
+aws_access_key_id = AKIATIM7AOQ7IHJCM //需要修改
+aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCKA  //需要修改
+
+[vpc public]
+vpc_id = vpc-a817aac5  //需要修改
+master_subnet_id = subnet-26fcc86cd  //需要修改
+
+[cluster GATK-pipeline]
+base_os = alinux
+custom_ami = ami-09fe399cffad04f67
+vpc_settings = public
+scheduler = slurm
+key_name = NX_key  //需要修改
+compute_instance_type = m4.xlarge
+master_instance_type = m4.xlarge
+compute_root_volume_size = 50
+master_root_volume_size = 50
+ebs_settings = genomes
+s3_read_resource = arn:aws-cn:s3:::parallelcluster-gatk/*
+scaling_settings = GATK-ASG
+initial_queue_size = 1
+pre_install = s3://parallelcluster-gatk/00.ParallelCluster/preinstall.sh 
+max_queue_size = 4
+maintain_initial_size = false
+extra_json = { "cluster" : { "ganglia_enabled" : "yes" ,"cfn_scheduler_slots" : "cores" } }
+
+[scaling GATK-ASG]
+scaledown_idletime = 5
+
+[ebs genomes]
+shared_dir = genomes
+ebs_snapshot_id = snap-040c71fd2bb5d4236
+volume_type = gp2
+volume_size =  1024
+
+[global]
+update_check = true
+sanity_check = true
+cluster_template = GATK-pipeline
+
+[aliases]
+ssh = ssh {CFN_USER}@{MASTER_IP} {ARGS}
+```
     
 #### 4)、启动集群
-    pcluster create GATK-pipeline
+```shell
+pcluster create GATK-pipeline
+```
     
 #### 5)、登陆集群master节点
-    #根据集群启动后的反馈信息输入
-    ssh -i <private key_name> ec2-user@master-public-ip
+```shell
+#根据集群启动后的反馈信息输入
+ssh -i <private key_name> ec2-user@master-public-ip
+```
     
 #### 6)、投递任务
 默认预装SGE作业调度系统，所以可直接qsub投递计算任务，举例如下：
-    
-    echo "sleep 180" | qsub
-    echo "sh run.sh" | qsub -l vf=2G,s_core=1 -q all.q
-    for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -cwd -S /bin/bash -l vf=2G,s_core=1 -q all.q;done
-    
-示例slurm调度系统投递命令参考如下：
+```
+echo "sleep 180" | qsub
+echo "sh run.sh" | qsub -l vf=2G,s_core=1 -q all.q
+for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -cwd -S /bin/bash -l vf=2G,s_core=1 -q all.q;done
+```    
 
-    sbatch -n 4 run.sh  //4核，可根据需要修改
-    squeue //查看队列情况
-    sinfo //查看节点情况
-    scancel jobid //取消任务
+示例slurm调度系统投递命令参考如下：
+```shell
+sbatch -n 4 run.sh  //4核，可根据需要修改
+squeue //查看队列情况
+sinfo //查看节点情况
+scancel jobid //取消任务
+```
     
 
 ### 2、基于workflow工具调度的WES分析
@@ -198,7 +209,7 @@
 #### 2)、脚本文件
 保存以下代码为指定文件名，需要与后续运行命令相匹配。
 FileName：***custom.conf***
-```
+```nextflow
 process{
     executor="sge"
     clusterOptions='-S /bin/bash'
@@ -212,7 +223,7 @@ aws {
 
 FileName：***genome.nf***:
 
-```
+```nextflow
 #!/usr/bin/env nextflow
 /* wget -qO- https://get.nextflow.io | bash*/
 
@@ -377,7 +388,7 @@ process finish {
 }
 ```
 #### 3)、运行方法
-```
+```shell
 #nextflow run -c ***[custom.conf]*** ***[nextflow script]*** --fastq1 ***[fastq1]*** --fastq2 ***[fastq2] -with-report xxx -with-timeline xxx -with-dag xxx ***-resume******
 nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.fastq.gz --fastq2 /genomes/project/nf/SRR622461_1.fastq.gz ***-with-report xxx -with-timeline xxx -with-dag xxx ***-resume******
 ```
