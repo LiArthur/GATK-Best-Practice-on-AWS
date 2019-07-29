@@ -88,7 +88,12 @@
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py
 
-#awscli安装
+#[awscli安装](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-chap-install.html)
+#先决条件
+#   Python 2 版本 2.6.5+ 或 Python 3 版本 3.3+
+#   Windows、Linux, macOS, or Unix
+#   注意
+#   较早版本的 Python 可能无法兼容所有 AWS 服务。如果在安装或使用 AWS CLI 时看到 InsecurePlatformWarning 或弃用通知，请更新到更高的版本。
 sudo pip install awscli
 
 #aws配置
