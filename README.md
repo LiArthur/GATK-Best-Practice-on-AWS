@@ -38,15 +38,23 @@
 ***相关基本介绍请参考[Parallelcluster官方博客](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/).***
 
 ### 1、现状及方案概述
-当前基因行业的分析平台大致分为三类，分别是单机、HPC集群、K8S集群，占比最的的仍然是HPC集群这种形式，对于大部分公司来说，本地HPC的搭建、运维成本仍然很昂贵，并且存在着诸多问题：
+当前基因行业的分析平台大致分为三类，分别是单机、HPC集群、K8S集群，占比最的的仍然是HPC集群这种形式。
+对于本地HPC环境来说可能会遇到以下问题：
 
-+ 计算存储的扩容、缩容周期长，难以跟上业务发展的速度
-+ 多套集群运维、部署、购置成本较高，难以做到备份容灾
-+ 本地数据类型复杂，大量文件来源和价值不能确认，难以做到精确的备份与归档
-+ 开发人员被各种集群问题所困扰，运维人员的精力被日常清理工作所消耗，难以集中做集群的优化工作。
++ 系统部署周期长(从采购到部署长达数个月)，难以跟上业务发展的速度
++ 集群运维难度较大，对于业务时效性要求较高的场景，难以做到高可用
++ 数据的生命周期管理有很大的挑战，且成本难以控制
++ 开发人员被各种集群问题所困扰，运维人员的精力被日常清理工作所消耗，难以集中做集群的优化工作
 
-上述问题在大部分公司都是存在的，除此之外还有很多问题会困扰大家。
-为了帮助克服、解决这些问题，我们提供了一套简单易用的方案，可一键创建完整的HPC集群，除此之外通过参数配置的调整，还可以以用户习惯的架构来精细化调整HPC环境，通过模版的复制，也可以最小化的成本实现本地的测试、迁移以及云上的集群环境复制，以此来帮助生命科学领域的用户去构建安全、可靠、高效、低成本的HPC集群，将开发、运维人员的精力从琐事中解放，专注在更有创造力的事情上，借助云的优势，可以打造更灵活、高可用的系统架构。
+对于传统云上HPC环境来说可能会遇到以下问题：
++ 资源难以精确控制，计算节点存在资源浪费
++ 运维部署周期长，一般需要1～2周，运维难度较大，环境不便复制迁移
++ 
+
+
+除此之外还有很多问题会困扰大家,为了帮助克服、解决这些问题，我们提供了一套简单易用的方案，可一键创建完整的HPC集群，除此之外通过参数配置的调整，还可以以用户习惯的架构来精细化调整HPC环境，通过模版的复制，也可以最小化的成本实现本地的测试、迁移以及云上的集群环境复制，以此来帮助生命科学领域的用户去构建安全、可靠、高效、低成本的HPC集群，将开发、运维人员的精力从琐事中解放，专注在更有创造力的事情上，借助云的优势，可以打造更灵活、高可用的系统架构。
+
+本方案的核心是parallelcluster,它自带的jobwatcher和配套服务，可以每分钟监控SGE、Slurm或Torque作业情况，以决定节点的何时进行弹性伸缩，这样可以直接带来30%左右成本的节约，具体工作原理参见 ***[Parallelcluster用户文档——作业处理流程](https://docs.aws.amazon.com/zh_cn/parallelcluster/latest/ug/processes.html).***
 
 
 ***
@@ -162,28 +170,26 @@ vim ~/.parallelcluster/config
 #复制下述配置信息，粘贴到配置文档~/.parallelcluster/config
 [aws]
 aws_region_name = cn-northwest-1
-aws_access_key_id = AKIATIM7AOQ7IHJCM //需要修改
-aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCKA  //需要修改
+aws_access_key_id = AKIATIM7AOQ7IHJCM #需要修改,如有已设置aws configure可无需此参数
+aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCKA  #//需要修改,如有已设置aws configure可无需此参数
 
 [vpc public]
-vpc_id = vpc-a817aac5  //需要修改
-master_subnet_id = subnet-26fcc86cd  //需要修改
+vpc_id = vpc-a817aac5  #//需要修改
+master_subnet_id = subnet-26fcc86cd  #//需要修改
 
 [cluster GATK-pipeline]
 base_os = alinux
-custom_ami = ami-09fe399cffad04f67
+custom_ami = ami-005db8a58ebd4e9a4
 vpc_settings = public
 scheduler = slurm
-key_name = NX_key  //需要修改
-compute_instance_type = m4.xlarge
-master_instance_type = m4.xlarge
+key_name = NX_key  #//需要修改
+compute_instance_type = m5.xlarge
+master_instance_type = m5.xlarge
 compute_root_volume_size = 50
 master_root_volume_size = 50
 ebs_settings = genomes
-s3_read_resource = arn:aws-cn:s3:::parallelcluster-gatk/*
 scaling_settings = GATK-ASG
 initial_queue_size = 1
-pre_install = s3://parallelcluster-gatk/00.ParallelCluster/preinstall.sh 
 max_queue_size = 4
 maintain_initial_size = false
 extra_json = { "cluster" : { "ganglia_enabled" : "yes" ,"cfn_scheduler_slots" : "cores" } }
@@ -218,7 +224,7 @@ ssh -i <private key_name> ec2-user@master-public-ip
 ```
     
 #### 6)、投递任务
-默认预装SGE作业调度系统，所以可直接qsub投递计算任务，举例如下：
+默认预装SGE作业调度系统，示例sge调度系统投递命令参考如下：
 ```
 echo "sleep 180" | qsub
 echo "sh run.sh" | qsub -l vf=2G,s_core=1 -q all.q
@@ -227,12 +233,19 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -cwd -S /bin/ba
 
 示例slurm调度系统投递命令参考如下：
 ```shell
-sbatch -n 4 run.sh  //4核，可根据需要修改
-squeue //查看队列情况
-sinfo //查看节点情况
-scancel jobid //取消任务
+sbatch -n 4 run.sh  #4核，可根据需要修改
+squeue #查看队列情况
+sinfo #查看节点情况
+scancel jobid #取消任务
 ```
-    
+
+示例slurm调度系统投递命令参考如下：
+```shell
+echo "sleep 180" | qsub
+echo "sh run.sh" | qsub -l nodes=1,walltime=2:00:00,mem=2gb -q batch
+for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,walltime=2:00:00,mem=2gb -q batch;done
+```
+
 
 ### 2、基于workflow工具调度的WES分析
 补充材料，可自行测试
@@ -251,7 +264,7 @@ process{
 aws {
   accessKey = 'xxx'
   secretKey = 'xxx'
-  region = 'cn-north-1'
+  region = 'cn-northwest-1'
 }
 ```
 
@@ -444,7 +457,7 @@ nextflow run -c custom.conf genome.nf --fastq1 /genomes/project/nf/SRR622461_1.f
 |ubuntu	|0.1	|ami-097d3bf901991372e	|基础软件环境AMI	|BJS	|是	|是	|	|
 |ubuntu	|0.2	|ami-041e4a3bce09385b9	|修改ubuntu默认shell(dash)为bash	|BJS	|是	|是	|不再更新	|
 |ubuntu	|0.2-a	|ami-026882b56146cdc1b	|基础软件环境AMI + Golang环境 + goofys	|BJS	|是	|是	|	|
-|alinux	|0.1	|ami-007f6ed61542ae017	|基础软件环境AMI	|NX	|是	|是	|	|
+|alinux	|0.2	|ami-005db8a58ebd4e9a4	|基础软件环境AMI	|NX	|是	|是	|	|
 |ubuntu	|0.1	|ami-0a1d99c2c70e3f86c	|基础软件环境AMI	|NX	|是	|否	|	|
 |ubuntu	|0.2	|ami-071aa7a2927cc02a8	|修改ubuntu默认shell(dash)为bash	|NX	|是	|否	|不再更新	|
 |ubuntu	|0.2-a	|ami-015f3a018cc98b6cc	|基础软件环境AMI + Golang环境 + goofys	|NX	|是	|否	|	|
