@@ -243,9 +243,9 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 
 ### 2、DEMO
 
-+ [基于nextflow工具调度的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/example/nextflow/README.md)
-+ [基于cromwell工具调度的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/example/cromwell/README.md)
-+ [基于shell的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/example/shell/README.md)
++ [基于nextflow工具调度的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/example/nextflow/README.md)
++ [基于cromwell工具调度的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/example/cromwell/README.md)
++ [基于shell的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/example/shell/README.md)
 
 
 ## 四、参考资料：
