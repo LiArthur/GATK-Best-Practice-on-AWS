@@ -12,7 +12,16 @@
 补充材料，可自行测试
 #### 1)、准备条件
 ##### ①、HPC集群
+```shell
+pcluster create XXX #创建SGE集群
+```
+
 ##### ②、nextflow调度软件
+```shell
+curl -s https://get.nextflow.io | bash
+./nextflow run hello  #测试是否正常
+```
+
 ##### ③、脚本及配置文件
 #### 2)、脚本文件
 保存以下代码为指定文件名，需要与后续运行命令相匹配。
