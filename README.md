@@ -22,7 +22,8 @@
       * [4)、启动集群](#4启动集群)
       * [5)、登陆集群master节点](#5登陆集群master节点)
       * [6)、投递任务](#6投递任务)
-    * [2、DEMO](#2demo)
+    * [2、AMI](#2ami)
+    * [3、DEMO](#3demo)
 * [四、参考资料：](#四参考资料)
 * [五、FAQ](#五faq)
 
@@ -239,8 +240,12 @@ echo "sh run.sh" | qsub -l nodes=1,walltime=2:00:00,mem=2gb -q batch
 for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,walltime=2:00:00,mem=2gb -q batch;done
 ```
 
+### 2、AMI
 
-### 2、DEMO
++ [alinux](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/AMI/alinux.sh)
++ [ubuntu](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/AMI/ubuntu.sh)
+
+### 3、DEMO
 
 + [基于nextflow工具调度的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/example/nextflow/README.md)
 + [基于cromwell工具调度的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/example/cromwell/README.md)

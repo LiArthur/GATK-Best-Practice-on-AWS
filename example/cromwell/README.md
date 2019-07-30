@@ -25,7 +25,7 @@ wget https://parallelcluster-gatk.s3.cn-north-1.amazonaws.com.cn/01.software/cro
 #### 2)、脚本文件
 保存以下代码为指定文件名，需要与后续运行命令相匹配。
 FileName：***test.wdl***
-```wdl
+```shell
 ## Copyright Broad Institute, 2017
 ##
 ## This WDL workflow runs HaplotypeCaller from GATK4 in GVCF mode on a single sample
