@@ -252,22 +252,23 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 + [Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)
 + [parallelcluster文档.](https://aws-parallelcluster.readthedocs.io/en/latest/)
 + [aws-parallelcluster GitHub 存储库.](https://github.com/aws/aws-parallelcluster)
-+ 镜像版本迭代:
++ 镜像版本迭代
 
-|系统	|版本号	|AMI ID	|更新描述	|地域	|是否公开	|可用性	|备注	|
-|---	|---	|---	|---	|---	|---	|---	|---	|
-|alinux-base	|	|ami-0da67c26ce2e8d111	|基础镜像	|BJS	|是	|是	|	|
-|ubuntu-base	|16.04	|ami-0ae967dc97d5eb57a	|基础镜像	|BJS	|是	|是	|	|
-|alinux	|0.1	|ami-07cb07d99e56894ce	|基础软件环境AMI	|BJS	|是	|是	|	|
-|alinux	|0.2	|ami-0cad4e9d804bd9c15	|基础软件环境AMI + Golang环境 + goofys；修复pip问题并安装awscli；修复goofys无法挂载问题，安装fuse依赖	|BJS	|是	|是	|	|
-|ubuntu	|0.1	|ami-097d3bf901991372e	|基础软件环境AMI	|BJS	|是	|是	|	|
-|ubuntu	|0.2	|ami-041e4a3bce09385b9	|修改ubuntu默认shell(dash)为bash	|BJS	|是	|是	|不再更新	|
-|ubuntu	|0.2-a	|ami-026882b56146cdc1b	|基础软件环境AMI + Golang环境 + goofys	|BJS	|是	|是	|	|
-|alinux	|0.2	|ami-005db8a58ebd4e9a4	|基础软件环境AMI	|NX	|是	|是	|	|
-|ubuntu	|0.1	|ami-0a1d99c2c70e3f86c	|基础软件环境AMI	|NX	|是	|否	|	|
-|ubuntu	|0.2	|ami-071aa7a2927cc02a8	|修改ubuntu默认shell(dash)为bash	|NX	|是	|否	|不再更新	|
-|ubuntu	|0.2-a	|ami-015f3a018cc98b6cc	|基础软件环境AMI + Golang环境 + goofys	|NX	|是	|否	|	|
-
+|系统	|版本号	|pcluster版本	|AMI ID	|更新描述	|地域	|是否公开	|可用性	|备注	|
+|---	|---	|---	|---	|---	|---	|---	|---	|---	|
+|alinux-base	|	|2.3.1	|ami-0e58e06d5b958ccb6	|基础镜像	|BJS	|是	|是	|	|
+|ubuntu-base	|16.04	|2.3.1	|ami-0a9c1879e6583621e	|基础镜像	|BJS	|是	|是	|	|
+|alinux	|0.1	|2.3.1	|ami-0997595bce93c6e7b	|基础软件环境AMI	|BJS	|是	|是	|	|
+|alinux	|0.2	|2.3.1	|ami-0cad4e9d804bd9c15	|基础软件环境AMI + Golang环境 + goofys；修复pip问题并安装awscli；修复goofys无法挂载问题，安装fuse依赖	|BJS	|是	|是	|	|
+|alinux	|0.2	|2.4.0	|ami-0b876120ec98b9a7c	|基础软件环境AMI	|BJS	|是	|是	|	|
+|ubuntu	|0.1	|2.3.1	|ami-097d3bf901991372e	|基础软件环境AMI	|BJS	|是	|是	|	|
+|ubuntu	|0.2	|2.3.1	|ami-041e4a3bce09385b9	|修改ubuntu默认shell(dash)为bash	|BJS	|是	|是	|不再更新	|
+|ubuntu	|0.2-a	|2.3.1	|ami-026882b56146cdc1b	|基础软件环境AMI + Golang环境 + goofys	|BJS	|是	|是	|	|
+|alinux	|0.1	|2.3.1	|ami-007f6ed61542ae017	|基础软件环境AMI	|NX	|是	|是	|	|
+|alinux	|0.2	|2.4.0	|ami-005db8a58ebd4e9a4	|基础软件环境AMI	|NX	|是	|是	|	|
+|ubuntu	|0.1	|2.3.1	|ami-0a1d99c2c70e3f86c	|基础软件环境AMI	|NX	|是	|否	|	|
+|ubuntu	|0.2	|2.3.1	|ami-071aa7a2927cc02a8	|修改ubuntu默认shell(dash)为bash	|NX	|是	|否	|不再更新	|
+|ubuntu	|0.2-a	|2.3.1	|ami-015f3a018cc98b6cc	|基础软件环境AMI + Golang环境 + goofys	|NX	|是	|否	|	|
 
 •   参考文件EBS快照迭代：
 
@@ -278,7 +279,6 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 |gatk-reference-v0.3	|0.3	|snap-08a4b975a2f40736f	|1T	|增加测试文件及GATK-TEST-DATA	|BJS	|
 |gatk-reference-v0.3	|0.3	|snap-040c71fd2bb5d4236	|1T	|增加测试文件及GATK-TEST-DATA	|NX	|
 |	|	|	|	|	|	|
-
 
 ## 五、FAQ
 
