@@ -43,7 +43,6 @@
 对于传统云上HPC环境来说可能会遇到以下问题：
 + 资源难以精确控制，计算节点存在资源浪费
 + 运维部署周期长，一般需要1～2周，运维难度较大，环境不便复制迁移
-+ 
 
 
 除此之外还有很多问题会困扰大家,为了帮助克服、解决这些问题，我们提供了一套简单易用的方案，可一键创建完整的HPC集群，除此之外通过参数配置的调整，还可以以用户习惯的架构来精细化调整HPC环境，通过模版的复制，也可以最小化的成本实现本地的测试、迁移以及云上的集群环境复制，以此来帮助生命科学领域的用户去构建安全、可靠、高效、低成本的HPC集群，将开发、运维人员的精力从琐事中解放，专注在更有创造力的事情上，借助云的优势，可以打造更灵活、高可用的系统架构。
@@ -167,19 +166,21 @@ vim ~/.parallelcluster/config
 #复制下述配置信息，粘贴到配置文档~/.parallelcluster/config
 [aws]
 aws_region_name = cn-northwest-1
-aws_access_key_id = AKIATIM7AOQ7IHJCM #需要修改,如有已设置aws configure可无需此参数
-aws_secret_access_key = ih4RN0rES+ytUy67Q377/RGfxwAiZqpWhCKA  #//需要修改,如有已设置aws configure可无需此参数
 
-[vpc public]
-vpc_id = vpc-a817aac5  #//需要修改
-master_subnet_id = subnet-26fcc86cd  #//需要修改
+[global]
+update_check = true
+sanity_check = true
+cluster_template = GATK-pipeline
+
+[aliases]
+ssh = ssh {CFN_USER}@{MASTER_IP} {ARGS}
 
 [cluster GATK-pipeline]
 base_os = alinux
-custom_ami = ami-005db8a58ebd4e9a4
+custom_ami = ami-005db8a58ebd4e9a4 #根据需要修改
 vpc_settings = public
 scheduler = slurm
-key_name = NX_key  #//需要修改
+key_name = NX_key  #需要修改
 compute_instance_type = m5.xlarge
 master_instance_type = m5.xlarge
 compute_root_volume_size = 50
@@ -189,24 +190,20 @@ scaling_settings = GATK-ASG
 initial_queue_size = 1
 max_queue_size = 4
 maintain_initial_size = false
-extra_json = { "cluster" : { "ganglia_enabled" : "yes" ,"cfn_scheduler_slots" : "cores" } }
+extra_json = { "cluster" : { "cfn_scheduler_slots" : "cores" } }
 
-[scaling GATK-ASG]
-scaledown_idletime = 5
+[vpc public]
+vpc_id = vpc-a817aac5  #需要修改
+master_subnet_id = subnet-26fcc86cd  #需要修改
 
 [ebs genomes]
 shared_dir = genomes
-ebs_snapshot_id = snap-040c71fd2bb5d4236
+ebs_snapshot_id = snap-040c71fd2bb5d4236 #根据需要修改
 volume_type = gp2
 volume_size =  1024
 
-[global]
-update_check = true
-sanity_check = true
-cluster_template = GATK-pipeline
-
-[aliases]
-ssh = ssh {CFN_USER}@{MASTER_IP} {ARGS}
+[scaling GATK-ASG]
+scaledown_idletime = 5
 ```
     
 #### 4)、启动集群
