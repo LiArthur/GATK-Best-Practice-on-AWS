@@ -80,7 +80,7 @@
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
 
-***注：测试以宁夏区为例，本测试需要账号有多个资源的创建权限(EC2,EIP,SQS,DynamoDB,AutoScaling,S3)***
+***[注：测试以宁夏区为例，本测试需要账号有多个资源的创建权限(初期测试可用admin access)](https://docs.aws.amazon.com/zh_cn/parallelcluster/latest/ug/iam.html)***
 
 #### 1)、 安装pip及awscli并配置必要信息
 
@@ -236,7 +236,7 @@ sinfo #查看节点情况
 scancel jobid #取消任务
 ```
 
-示例slurm调度系统投递命令参考如下：
+示例pbs调度系统投递命令参考如下：
 ```shell
 echo "sleep 180" | qsub
 echo "sh run.sh" | qsub -l nodes=1,walltime=2:00:00,mem=2gb -q batch
@@ -259,7 +259,7 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 ## 四、参考资料：
 
 + [Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)
-+ [parallelcluster文档.](https://aws-parallelcluster.readthedocs.io/en/latest/)
++ [parallelcluster文档.](https://docs.aws.amazon.com/zh_cn/parallelcluster/latest/ug/what-is-aws-parallelcluster.html)
 + [aws-parallelcluster GitHub 存储库.](https://github.com/aws/aws-parallelcluster)
 + 镜像版本迭代
 
