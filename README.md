@@ -84,6 +84,22 @@
 #### 1)、 安装pip及awscli并配置必要信息
 
 + [awscli安装参考](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-chap-install.html)
++ aws_access_key_id及aws_secret_access_key
+
+**请登录console，并点击*我的安全凭证***
+
+**创建访问密钥并记录aws_access_key_id及aws_secret_access_key**
+
+<br>
+
+![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/6.png)
+
+<br>
+
+![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/7.png)
+
+<br>
+<br>
 
 ```shell
 #pip安装
@@ -104,23 +120,6 @@ sudo pip install aws-parallelcluster
 
 #### 3)、pcluster安装及配置
 ##### ①、相关准备
-
-+ aws_access_key_id及aws_secret_access_key
-
-**请登录console，并点击*我的安全凭证***
-
-**创建访问密钥并记录aws_access_key_id及aws_secret_access_key**
-
-<br>
-
-![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/6.png)
-
-<br>
-
-![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/7.png)
-
-<br>
-<br>
 
 + VPC及子网
 
