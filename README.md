@@ -80,12 +80,13 @@
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
 
-***注：测试以宁夏区为例***
+***注：测试以宁夏区为例，本测试需要账号有多个资源的创建权限(EC2,EIP,SQS,DynamoDB,AutoScaling,S3)***
 
 #### 1)、 安装pip及awscli并配置必要信息
 
 + [awscli安装参考](https://docs.aws.amazon.com/zh_cn/cli/latest/userguide/cli-chap-install.html)
 + aws_access_key_id及aws_secret_access_key
+
 
 **请登录console，并点击*我的安全凭证***
 
@@ -155,7 +156,6 @@ sudo pip install aws-parallelcluster
 
 ##### ②、配置pcluster config(可参考官方博客)
 
-***注：标注为 XXXXXXXXXX 的请修改为上面获取到的值***
 ```shell
 #创建配置模版,会提示无配置，请忽略错误信息
 pcluster create new
@@ -214,7 +214,10 @@ pcluster create GATK-pipeline
 #### 5)、登陆集群master节点
 ```shell
 #根据集群启动后的反馈信息输入
-ssh -i <private key_name> ec2-user@master-public-ip
+#ssh -i <private key_name> <username>@<public ip>
+ssh -i <private key_name> ec2-user@master-public-ip #alinux
+ssh -i <private key_name> ubuntu@master-public-ip #ubuntu
+ssh -i <private key_name> centos@master-public-ip #centos
 ```
     
 #### 6)、投递任务
