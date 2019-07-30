@@ -154,7 +154,7 @@ sudo pip install aws-parallelcluster
 
 ![](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/11.png)
 
-##### ②、配置pcluster config(可参考官方博客)
+##### ②、配置pcluster config([可参考官方博客](https://docs.aws.amazon.com/zh_cn/parallelcluster/latest/ug/configuration.html))
 
 ```shell
 #创建配置模版,会提示无配置，请忽略错误信息
