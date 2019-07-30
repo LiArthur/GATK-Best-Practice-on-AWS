@@ -195,7 +195,7 @@ task MergeGVCFs {
 ```
 
 FileName：***sge.conf***
-```json
+```conf
 #include the application.conf file.
 include required(classpath("application"))
 webservice {

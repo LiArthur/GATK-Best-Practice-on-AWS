@@ -241,6 +241,7 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 ```
 
 ### 2、AMI
+***制作自定义ami请参考官方文档***
 
 + [alinux](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/AMI/alinux.sh)
 + [ubuntu](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/AMI/ubuntu.sh)
