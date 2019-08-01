@@ -25,7 +25,7 @@ wget https://parallelcluster-gatk.s3.cn-north-1.amazonaws.com.cn/01.software/cro
 #### 2)、脚本文件
 保存以下代码为指定文件名，需要与后续运行命令相匹配。
 FileName：***test.wdl***
-```shell
+```wdl
 ## Copyright Broad Institute, 2017
 ##
 ## This WDL workflow runs HaplotypeCaller from GATK4 in GVCF mode on a single sample
@@ -174,24 +174,6 @@ task MergeGVCFs {
     File output_vcf_index = "${vcf_index}"
   }
 }
-
-测试标志：控制台以json格式输出结果文件路径，如：
-
- #...other output
- [2019-05-31 06:41:55,48] [info] WorkflowExecutionActor-621bcdec-19a9-411d-8670-3899fa9e8509 [621bcdec]: Workflow HaplotypeCallerGvcf_GATK4 complete. Final Outputs:
- {
-  "HaplotypeCallerGvcf_GATK4.output_merged_gvcf_index": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz.tbi",
-  "HaplotypeCallerGvcf_GATK4.output_merged_gvcf": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz"
-}
-[2019-05-31 06:41:55,51] [info] WorkflowManagerActor WorkflowActor-621bcdec-19a9-411d-8670-3899fa9e8509 is in a terminal state: WorkflowSucceededState
-[2019-05-31 06:42:20,69] [info] SingleWorkflowRunnerActor workflow finished with status 'Succeeded'.
-{
-  "outputs": {
-    "HaplotypeCallerGvcf_GATK4.output_merged_gvcf": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz",
-    "HaplotypeCallerGvcf_GATK4.output_merged_gvcf_index": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz.tbi"
-  },
-  "id": "621bcdec-19a9-411d-8670-3899fa9e8509"
-}
 ```
 
 FileName：***sge.conf***
@@ -319,7 +301,29 @@ FileName：***input.json***
 
 #### 3)、运行方法
 ```shell
-java -Dconfig.file=[*path to custom.**conf]* -jar [*cromwell jar package]* run [*wdl script]* -i *[input json]*
+#java -Dconfig.file=[*path to custom.**conf]* -jar [*cromwell jar package]* run [*wdl script]* -i *[input json]*
 #example:
-java -Dconfig.file=/genomes/project/wdl/simple-pipeline-test/sge.conf -jar /genomes/project/wdl/simple-pipeline-test/cromwell-39.jar run /genomes/project/wdl/simple-pipeline-test/test.wdl -i /genomes/project/wdl/simple-pipeline-test/input.json
+java -Dconfig.file=./conf/sge.conf -jar /genomes/project/wdl/simple-pipeline-test/cromwell-39.jar run /genomes/project/wdl/simple-pipeline-test/test.wdl -i /genomes/project/wdl/simple-pipeline-test/input.json
+```
+
+
+#### 4)、结果输出
+
+测试标志：控制台以json格式输出结果文件路径，如：
+```
+#...other output
+ [2019-05-31 06:41:55,48] [info] WorkflowExecutionActor-621bcdec-19a9-411d-8670-3899fa9e8509 [621bcdec]: Workflow HaplotypeCallerGvcf_GATK4 complete. Final Outputs:
+ {
+  "HaplotypeCallerGvcf_GATK4.output_merged_gvcf_index": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz.tbi",
+  "HaplotypeCallerGvcf_GATK4.output_merged_gvcf": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz"
+}
+[2019-05-31 06:41:55,51] [info] WorkflowManagerActor WorkflowActor-621bcdec-19a9-411d-8670-3899fa9e8509 is in a terminal state: WorkflowSucceededState
+[2019-05-31 06:42:20,69] [info] SingleWorkflowRunnerActor workflow finished with status 'Succeeded'.
+{
+  "outputs": {
+    "HaplotypeCallerGvcf_GATK4.output_merged_gvcf": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz",
+    "HaplotypeCallerGvcf_GATK4.output_merged_gvcf_index": "/genomes/project/wdl/simple-pipeline-test/cromwell-executions/HaplotypeCallerGvcf_GATK4/621bcdec-19a9-411d-8670-3899fa9e8509/call-MergeGVCFs/execution/NA12878_24RG_small.b37.g.vcf.gz.tbi"
+  },
+  "id": "621bcdec-19a9-411d-8670-3899fa9e8509"
+}
 ```
