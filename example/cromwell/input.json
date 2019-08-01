@@ -1,7 +1,7 @@
 {
     "##_COMMENT1": "INPUT BAM",
-    "HaplotypeCallerGvcf_GATK4.input_bam": "s3://parallelcluster-gatk/99.testdata/wgs_bam/NA12878_24RG_b37/NA12878_24RG_small.b37.bam",
-    "HaplotypeCallerGvcf_GATK4.input_bam_index": "s3://parallelcluster-gatk/99.testdata/wgs_bam/NA12878_24RG_b37/NA12878_24RG_small.b37.bai",
+    "HaplotypeCallerGvcf_GATK4.input_bam": "/genomes/testdata/wgs_bam/NA12878_24RG_b37/NA12878_24RG_small.b37.bam",
+    "HaplotypeCallerGvcf_GATK4.input_bam_index": "/genomes/testdata/wgs_bam/NA12878_24RG_b37/NA12878_24RG_small.b37.bai",
   
     "##_COMMENT2": "REFERENCE FILES",
     "HaplotypeCallerGvcf_GATK4.ref_dict": "/genomes/reference/hg19/v0/Homo_sapiens_assembly19.dict",
