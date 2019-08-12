@@ -78,6 +78,7 @@
 ### 2、端到端的基因大数据分析、归档、交付方案
 ![端到端的基因大数据分析、归档、交付方案](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/5.png)
 ## 三、迁移部署流程
+[建议迁移部署方法](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/doc/01.migrate/README.md)
 ## 四、测试文档
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
@@ -182,7 +183,7 @@ base_os = alinux
 custom_ami = ami-005db8a58ebd4e9a4 #根据需要修改
 vpc_settings = public
 scheduler = slurm
-key_name = NX_key  #需要修改
+key_name = ZHY_key  #需要修改
 compute_instance_type = m5.xlarge
 master_instance_type = m5.xlarge
 compute_root_volume_size = 50
@@ -275,11 +276,11 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 |ubuntu	|0.1	|2.3.1	|ami-097d3bf901991372e	|基础软件环境AMI	|BJS	|是	|是	|	|
 |ubuntu	|0.2	|2.3.1	|ami-041e4a3bce09385b9	|修改ubuntu默认shell(dash)为bash	|BJS	|是	|是	|不再更新	|
 |ubuntu	|0.2-a	|2.3.1	|ami-026882b56146cdc1b	|基础软件环境AMI + Golang环境 + goofys	|BJS	|是	|是	|	|
-|alinux	|0.1	|2.3.1	|ami-007f6ed61542ae017	|基础软件环境AMI	|NX	|是	|是	|	|
-|alinux	|0.2	|2.4.0	|ami-005db8a58ebd4e9a4	|基础软件环境AMI	|NX	|是	|是	|	|
-|ubuntu	|0.1	|2.3.1	|ami-0a1d99c2c70e3f86c	|基础软件环境AMI	|NX	|是	|否	|	|
-|ubuntu	|0.2	|2.3.1	|ami-071aa7a2927cc02a8	|修改ubuntu默认shell(dash)为bash	|NX	|是	|否	|不再更新	|
-|ubuntu	|0.2-a	|2.3.1	|ami-015f3a018cc98b6cc	|基础软件环境AMI + Golang环境 + goofys	|NX	|是	|否	|	|
+|alinux	|0.1	|2.3.1	|ami-007f6ed61542ae017	|基础软件环境AMI	|ZHY	|是	|是	|	|
+|alinux	|0.2	|2.4.0	|ami-005db8a58ebd4e9a4	|基础软件环境AMI	|ZHY	|是	|是	|	|
+|ubuntu	|0.1	|2.3.1	|ami-0a1d99c2c70e3f86c	|基础软件环境AMI	|ZHY	|是	|否	|	|
+|ubuntu	|0.2	|2.3.1	|ami-071aa7a2927cc02a8	|修改ubuntu默认shell(dash)为bash	|ZHY	|是	|否	|不再更新	|
+|ubuntu	|0.2-a	|2.3.1	|ami-015f3a018cc98b6cc	|基础软件环境AMI + Golang环境 + goofys	|ZHY	|是	|否	|	|
 
 •   参考文件EBS快照迭代：
 
@@ -288,7 +289,7 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 |gatk-reference v0.1	|0.1	|snap-09c16ac9809cf4359	|100G	|基础环境快照，包含hg19参考基因组	|BJS	|
 |gatk-reference v0.2	|0.2	|snap-06f5e874571e44510	|100G	|增加hg38及GATK数据集	|BJS	|
 |gatk-reference-v0.3	|0.3	|snap-08a4b975a2f40736f	|1T	|增加测试文件及GATK-TEST-DATA	|BJS	|
-|gatk-reference-v0.3	|0.3	|snap-040c71fd2bb5d4236	|1T	|增加测试文件及GATK-TEST-DATA	|NX	|
+|gatk-reference-v0.3	|0.3	|snap-040c71fd2bb5d4236	|1T	|增加测试文件及GATK-TEST-DATA	|ZHY	|
 |	|	|	|	|	|	|
 
 ## 六、FAQ
