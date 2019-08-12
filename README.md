@@ -12,7 +12,8 @@
 * [二、详细方案说明](#二详细方案说明)
     * [1、集群解决方案](#1集群解决方案)
     * [2、端到端的基因大数据分析、归档、交付方案](#2端到端的基因大数据分析归档交付方案)
-* [三、方案部署及测试文档](#三方案部署及测试文档)
+* [三、迁移部署流程](#三迁移部署流程)
+* [四、测试文档](#四测试文档)
     * [1、10分钟集群部署](#110分钟集群部署)
       * [1)、 安装pip及awscli并配置必要信息](#1-安装pip及awscli并配置必要信息)
       * [2)、安装pcluster](#2安装pcluster)
@@ -24,8 +25,8 @@
       * [6)、投递任务](#6投递任务)
     * [2、AMI](#2ami)
     * [3、DEMO](#3demo)
-* [四、参考资料：](#四参考资料)
-* [五、FAQ](#五faq)
+* [五、参考资料：](#四参考资料)
+* [六、FAQ](#五faq)
 
 
 ## 一、方案简介
@@ -76,7 +77,8 @@
 ![集群解决方案](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/4.png)
 ### 2、端到端的基因大数据分析、归档、交付方案
 ![端到端的基因大数据分析、归档、交付方案](https://github.com/lab798/GATK-Best-Practice-on-AWS/raw/master/images/5.png)
-## 三、方案部署及测试文档
+## 三、迁移部署流程
+## 四、测试文档
 ### 1、10分钟集群部署
 下述文档示例会启动一个完整的HPC集群，包括主节点、计算节点、共享存储以及预装SGE作业调度系统，AMI为预装GATK相关软件的镜像，包括bwa，Samtools，gatk4等，镜像snapshot为GATK公开数据集，包括数据库及测试文件，启动后挂载到/genomics目录下。
 
@@ -256,7 +258,7 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 + [基于shell的demo](https://github.com/lab798/GATK-Best-Practice-on-AWS/tree/master/example/shell/README.md)
 
 
-## 四、参考资料：
+## 五、参考资料：
 
 + [Parallelcluster官方博客.](https://amazonaws-china.com/cn/blogs/china/aws-parallelcluster/)
 + [parallelcluster文档.](https://docs.aws.amazon.com/zh_cn/parallelcluster/latest/ug/what-is-aws-parallelcluster.html)
@@ -289,5 +291,5 @@ for((i=1;i<=10;i++));do echo "sh /genomes/temp/run.sh $i" | qsub -l nodes=1,wall
 |gatk-reference-v0.3	|0.3	|snap-040c71fd2bb5d4236	|1T	|增加测试文件及GATK-TEST-DATA	|NX	|
 |	|	|	|	|	|	|
 
-## 五、FAQ
+## 六、FAQ
 
